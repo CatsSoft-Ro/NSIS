@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindProcDLL", "FindProcDLL.vcxproj", "{E142621F-89A9-E720-A12A-79FC15281677}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ANSI|Win32 = ANSI|Win32
+		Debug|Win32 = Debug|Win32
+		Unicode|Win32 = Unicode|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E142621F-89A9-E720-A12A-79FC15281677}.ANSI|Win32.ActiveCfg = ANSI|Win32
+		{E142621F-89A9-E720-A12A-79FC15281677}.ANSI|Win32.Build.0 = ANSI|Win32
+		{E142621F-89A9-E720-A12A-79FC15281677}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E142621F-89A9-E720-A12A-79FC15281677}.Debug|Win32.Build.0 = Debug|Win32
+		{E142621F-89A9-E720-A12A-79FC15281677}.Unicode|Win32.ActiveCfg = Unicode|Win32
+		{E142621F-89A9-E720-A12A-79FC15281677}.Unicode|Win32.Build.0 = Unicode|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
