@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CRCCheck", "CRCCheck.vcproj", "{F9020B8C-81B9-42F7-92B6-4C781D70A028}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F9020B8C-81B9-42F7-92B6-4C781D70A028}.Debug.ActiveCfg = Debug|Win32
+		{F9020B8C-81B9-42F7-92B6-4C781D70A028}.Debug.Build.0 = Debug|Win32
+		{F9020B8C-81B9-42F7-92B6-4C781D70A028}.Release.ActiveCfg = Release|Win32
+		{F9020B8C-81B9-42F7-92B6-4C781D70A028}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
