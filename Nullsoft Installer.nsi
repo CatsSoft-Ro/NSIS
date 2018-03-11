@@ -5729,6 +5729,479 @@ Section "MAIN" SEC01
     SendMessage $INSTALL_PERCENT ${WM_SETTEXT} 0 "STR:$R1%"
     ${TBProgress} $R1
 
+    # ...:: IObit ::... #
+
+    ${CheckInternetConnection} "https://www.iobit.com/en/index.php" $0 
+    ${If} $0 == "OK" 
+
+      DetailPrint "$YES_INTERNET_CONNECTION_LANGUAGE"
+
+      DetailPrint "$CONNECT_SERVER_LANGUAGE"
+
+       # ...:: IObit Uninstaller ::... #
+
+       ${If} $Bool_Yes_Install_IU == 1
+  	  IfFileExists "$PROGRAMFILES\IObit\IObit Uninstaller\IObitUninstaler.exe" "IObitUninstallerDown1" "IObitUninstallerEnd1"
+	  StrCmp $0 "1" "IObitUninstallerDown1" "IObitUninstallerEnd1"
+  	  ${If} $0 == "1"
+    	    IObitUninstallerDown1:
+
+                SetShellVarContext "all"
+
+		; === Get Toolbox URL from .ini file ===
+		ReadINIStr $0 "$PLUGINSDIR\Toolbox.ini" "Toolbox_102" "File_1"
+		${GetOptions} "|$0" "|URL:" $1
+
+		; === Get file name of Toolbox from .ini file ===
+		${GetOptions} "|$0" "|NAME:" $2
+
+		; === Get Toolbox Already Exist ===
+        	MessageBox MB_YESNO|MB_USERICON 'Warnig!$\n$\n$2 already exists.$\n$\nDo you want to download it again?' IDYES "IObitUninstallerEnd1" IDNO "IObitUninstallerExit1"
+        	Abort
+
+             GoTo IObitUninstallerExit1
+
+  	  ${ElseIf} $0 == "0"
+    	     IObitUninstallerEnd1:
+
+                SetShellVarContext "all"
+
+		RMDir /r "$TEMP\Toolbox"
+		CreateDirectory "$TEMP\Toolbox"
+
+		; === Get Toolbox URL from .ini file ===
+		ReadINIStr $0 "$PLUGINSDIR\Toolbox.ini" "Toolbox_102" "File_1"
+		${GetOptions} "|$0" "|URL:" $1
+
+		; === Get file name of Toolbox from .ini file ===
+		${GetOptions} "|$0" "|NAME:" $2
+
+		; === Download and install Toolbox ===
+		inetc::get /POPUP "" /CAPTION "$2" "$1" "$TEMP\Toolbox\$2" /END
+		Pop $0
+		StrCmp $0 "OK" +3
+		  MessageBox MB_USERICON "Download of $2: $0"
+		Goto +3
+
+                SetShellVarContext "all"
+
+      		ExecWait '"$TEMP\Toolbox\$2" /VERYSILENT /NORESTART'
+
+              GoTo IObitUninstallerExit1
+
+  	  ${EndIf}
+	  IObitUninstallerExit1:
+       ${EndIf}
+
+       # Prograss (25%) Installing #
+       IntOp $R1 $R1 + 1
+       SendMessage $ProgressBar ${PBM_SETPOS} "$R1" "0"
+       SendMessage $INSTALL_PERCENT ${WM_SETTEXT} 0 "STR:$R1%"
+       ${TBProgress} $R1
+
+       # ...:: IObit Driver Booster ::... #
+
+       ${If} $Bool_Yes_Install_DB == 1
+  	  IfFileExists "$PROGRAMFILES\IObit\Driver Booster\DriverBooster.exe" "IObitDriverBoosterDown1" "IObitDriverBoosterEnd1"
+	  StrCmp $0 "1" "IObitDriverBoosterDown1" "IObitDriverBoosterEnd1"
+  	  ${If} $0 == "1"
+    	    IObitDriverBoosterDown1:
+
+                SetShellVarContext "all"
+
+		; === Get Toolbox URL from .ini file ===
+		ReadINIStr $0 "$PLUGINSDIR\Toolbox.ini" "Toolbox_101" "File_1"
+		${GetOptions} "|$0" "|URL:" $1
+
+		; === Get file name of Toolbox from .ini file ===
+		${GetOptions} "|$0" "|NAME:" $2
+
+		; === Get Toolbox Already Exist ===
+        	MessageBox MB_YESNO|MB_USERICON 'Warnig!$\n$\n$2 already exists.$\n$\nDo you want to download it again?' IDYES "IObitDriverBoosterEnd1" IDNO "IObitDriverBoosterExit1"
+        	Abort
+
+        	GoTo IObitDriverBoosterExit1
+
+  	  ${ElseIf} $0 == "0"
+    	    IObitDriverBoosterEnd1:
+
+                SetShellVarContext "all"
+		RMDir /r "$TEMP\Toolbox"
+		CreateDirectory "$TEMP\Toolbox"
+
+		; === Get Toolbox URL from .ini file ===
+		ReadINIStr $0 "$PLUGINSDIR\Toolbox.ini" "Toolbox_101" "File_1"
+		${GetOptions} "|$0" "|URL:" $1
+
+		; === Get file name of Toolbox from .ini file ===
+		${GetOptions} "|$0" "|NAME:" $2
+
+		; === Download and install Toolbox ===
+		inetc::get /POPUP "" /CAPTION "$2" "$1" "$TEMP\Toolbox\$2" /END
+		Pop $0
+		StrCmp $0 "OK" +3
+		  MessageBox MB_USERICON "Download of $2: $0"
+		Goto +3
+
+                SetShellVarContext "all"
+
+      		ExecWait '"$TEMP\Toolbox\$2" /VERYSILENT /NORESTART'
+
+        	GoTo IObitDriverBoosterExit1
+
+  	  ${EndIf}
+	  IObitDriverBoosterExit1:
+       ${EndIf}
+
+       # Prograss (25%) Installing #
+       IntOp $R1 $R1 + 1
+       SendMessage $ProgressBar ${PBM_SETPOS} "$R1" "0"
+       SendMessage $INSTALL_PERCENT ${WM_SETTEXT} 0 "STR:$R1%"
+       ${TBProgress} $R1
+
+       # ...:: IObit Smart Defrag ::... #
+
+       ${If} $Bool_Yes_Install_SM == 1
+  	 IfFileExists "$PROGRAMFILES\IObit\Smart Defrag\SmartDefrag.exe" "IObitSmartDefragDown1" "IObitSmartDefragEnd1"
+	 StrCmp $0 "1" "IObitSmartDefragDown1" "IObitSmartDefragEnd1"
+         ${If} $0 == "1"
+    	   IObitSmartDefragDown1:
+
+                SetShellVarContext "all"
+
+		; === Get Toolbox URL from .ini file ===
+		ReadINIStr $0 "$PLUGINSDIR\Toolbox.ini" "Toolbox_103" "File_1"
+		${GetOptions} "|$0" "|URL:" $1
+
+		; === Get file name of Toolbox from .ini file ===
+		${GetOptions} "|$0" "|NAME:" $2
+
+		; === Get Toolbox Already Exist ===
+        	MessageBox MB_YESNO|MB_USERICON 'Warnig!$\n$\n$2 already exists.$\n$\nDo you want to download it again?' IDYES "IObitSmartDefragEnd1" IDNO "IObitSmartDefragExit1"
+        	Abort
+
+        	GoTo IObitSmartDefragExit1
+
+         ${ElseIf} $0 == "0"
+    	   IObitSmartDefragEnd1:
+
+                SetShellVarContext "all"
+		RMDir /r "$TEMP\Toolbox"
+		CreateDirectory "$TEMP\Toolbox"
+
+		; === Get Toolbox URL from .ini file ===
+		ReadINIStr $0 "$PLUGINSDIR\Toolbox.ini" "Toolbox_103" "File_1"
+		${GetOptions} "|$0" "|URL:" $1
+
+		; === Get file name of Toolbox from .ini file ===
+		${GetOptions} "|$0" "|NAME:" $2
+
+		; === Download and install Toolbox ===
+		inetc::get /POPUP "" /CAPTION "$2" "$1" "$TEMP\Toolbox\$2" /END
+		Pop $0
+		StrCmp $0 "OK" +3
+		   MessageBox MB_USERICON "Download of $2: $0"
+		Goto +3
+
+                SetShellVarContext "all"
+
+      		ExecWait '"$TEMP\Toolbox\$2" /VERYSILENT /NORESTART'
+
+        	GoTo IObitSmartDefragExit1
+
+         ${EndIf}
+	 IObitSmartDefragExit1:
+       ${EndIf}
+
+       # Prograss (25%) Installing #
+       IntOp $R1 $R1 + 1
+       SendMessage $ProgressBar ${PBM_SETPOS} "$R1" "0"
+       SendMessage $INSTALL_PERCENT ${WM_SETTEXT} 0 "STR:$R1%"
+       ${TBProgress} $R1
+
+       # ...:: IObit Advanced SystemCare ::... #
+
+       ${If} $Bool_Yes_Install_ASC == 1
+  	 IfFileExists "$PROGRAMFILES\IObit\Advanced SystemCare\ASC.exe" "IObitAdvancedSystemCareDown1" "IObitAdvancedSystemCareEnd1"
+	 StrCmp $0 "1" "IObitAdvancedSystemCareDown1" "IObitAdvancedSystemCareEnd1"
+  	 ${If} $0 == "1"
+    	   IObitAdvancedSystemCareDown1:
+
+                SetShellVarContext "all"
+
+		; === Get Toolbox Already Exist ===
+        	MessageBox MB_YESNO|MB_USERICON 'Warnig!$\n$\nIObit Advanced SystemCare already exists.$\n$\nDo you want to download it again?' IDYES "IObitAdvancedSystemCareEnd1" IDNO "IObitAdvancedSystemCareExit1"
+        	Abort
+
+        	GoTo IObitAdvancedSystemCareExit1
+
+  	 ${ElseIf} $0 == "0"
+    	   IObitAdvancedSystemCareEnd1:
+
+                SetShellVarContext "all"
+		RMDir /r "$TEMP\Toolbox"
+		CreateDirectory "$TEMP\Toolbox"
+
+		; === Download and install Toolbox ===
+		inetc::get /POPUP "" /CAPTION "advanced-systemcare-setup.exe" "http://update.iobit.com/dl/advanced-systemcare-setup.exe" "$TEMP\Toolbox\advanced-systemcare-setup.exe" /END
+		Pop $0
+		StrCmp $0 "OK" +3
+		  MessageBox MB_USERICON "Download of advanced-systemcare-setup.exe: $0"
+		Goto +3
+
+                SetShellVarContext "all"
+
+      		ExecWait '"$TEMP\Toolbox\advanced-systemcare-setup.exe" /VERYSILENT /NORESTART'
+
+        	GoTo IObitAdvancedSystemCareExit1
+
+  	 ${EndIf}
+	 IObitAdvancedSystemCareExit1:
+       ${EndIf}
+
+       # Prograss (25%) Installing #
+       IntOp $R1 $R1 + 1
+       SendMessage $ProgressBar ${PBM_SETPOS} "$R1" "0"
+       SendMessage $INSTALL_PERCENT ${WM_SETTEXT} 0 "STR:$R1%"
+       ${TBProgress} $R1
+
+       # ...:: IObit Malware Fighter ::... #
+
+       ${If} $Bool_Yes_Install_IMF == 1
+  	 IfFileExists "$PROGRAMFILES\IObit\Malware Fighter\IMF.exe" "IObitMalwareFighterDown1" "IObitMalwareFighterEnd1"
+	 StrCmp $0 "1" "IObitMalwareFighterDown1" "IObitMalwareFighterEnd1"
+  	 ${If} $0 == "1"
+    	   IObitMalwareFighterDown1:
+
+                SetShellVarContext "all"
+
+		; === Get Toolbox URL from .ini file ===
+		ReadINIStr $0 "$PLUGINSDIR\Toolbox.ini" "Toolbox_104" "File_1"
+		${GetOptions} "|$0" "|URL:" $1
+
+		; === Get file name of Toolbox from .ini file ===
+		${GetOptions} "|$0" "|NAME:" $2
+
+		; === Get Toolbox Already Exist ===
+        	MessageBox MB_YESNO|MB_USERICON 'Warnig!$\n$\n$2 already exists.$\n$\nDo you want to download it again?' IDYES "IObitMalwareFighterEnd1" IDNO "IObitMalwareFighterExit1"
+        	Abort
+
+        	GoTo IObitMalwareFighterExit1
+
+  	 ${ElseIf} $0 == "0"
+    	   IObitMalwareFighterEnd1:
+
+                SetShellVarContext "all"
+
+		RMDir /r "$TEMP\Toolbox"
+		CreateDirectory "$TEMP\Toolbox"
+
+		; === Get Toolbox URL from .ini file ===
+		ReadINIStr $0 "$PLUGINSDIR\Toolbox.ini" "Toolbox_104" "File_1"
+		${GetOptions} "|$0" "|URL:" $1
+
+		; === Get file name of Toolbox from .ini file ===
+		${GetOptions} "|$0" "|NAME:" $2
+
+		; === Download and install Toolbox ===
+		inetc::get /POPUP "" /CAPTION "$2" "$1" "$TEMP\Toolbox\$2" /END
+		Pop $0
+		StrCmp $0 "OK" +3
+		  MessageBox MB_USERICON "Download of $2: $0"
+		Goto +3
+
+                SetShellVarContext "all"
+
+      		ExecWait '"$TEMP\Toolbox\$2" /VERYSILENT /NORESTART'
+
+        	GoTo IObitMalwareFighterExit1
+
+  	 ${EndIf}
+	 IObitMalwareFighterExit1:
+       ${EndIf}
+
+       # Prograss (25%) Installing #
+       IntOp $R1 $R1 + 1
+       SendMessage $ProgressBar ${PBM_SETPOS} "$R1" "0"
+       SendMessage $INSTALL_PERCENT ${WM_SETTEXT} 0 "STR:$R1%"
+       ${TBProgress} $R1
+
+       # ...:: IObit Unlocker ::... #
+
+       ${If} $Bool_Yes_Install_IUK == 1
+  	 IfFileExists "$PROGRAMFILES\IObit\IObit Unlocker\IObitUnlocker.exe" "IObitUnlockerDown1" "IObitUnlockerEnd1"
+	 StrCmp $0 "1" "IObitUnlockerDown" "IObitUnlockerEnd1"
+  	 ${If} $0 == "1"
+    	   IObitUnlockerDown1:
+
+                SetShellVarContext "all"
+
+		; === Get Toolbox Already Exist ===
+        	MessageBox MB_YESNO|MB_USERICON 'Warnig!$\n$\nIObit Unlocker already exists.$\n$\nDo you want to download it again?' IDYES "IObitUnlockerEnd1" IDNO "IObitUnlockerExit1"
+        	Abort
+
+        	GoTo IObitUnlockerExit1
+
+  	 ${ElseIf} $0 == "0"
+    	   IObitUnlockerEnd1:
+
+                SetShellVarContext "all"
+
+		RMDir /r "$TEMP\Toolbox"
+		CreateDirectory "$TEMP\Toolbox"
+
+		; === Download and install Toolbox ===
+		inetc::get /POPUP "" /CAPTION "unlocker-setup.exe" "http://update.iobit.com/dl/unlocker-setup.exe" "$TEMP\Toolbox\unlocker-setup.exe" /END
+		Pop $0
+		StrCmp $0 "OK" +3
+		  MessageBox MB_USERICON "Download of unlocker-setup.exe: $0"
+		Goto +3
+
+                SetShellVarContext "all"
+
+      		ExecWait '"$TEMP\Toolbox\unlocker-setup.exe" /VERYSILENT /NORESTART'
+
+        	GoTo IObitUnlockerExit1
+
+  	 ${EndIf}
+	 IObitUnlockerExit1:
+       ${EndIf}
+
+       # ...:: IObit Undelete ::... #
+
+       ${If} $Bool_Yes_Install_IUD == 1
+  	 IfFileExists "$PROGRAMFILES\IObit\IObit Undelete\IObit-Undelete.exe" "IObitUndeleteDown1" "IObitUndeleteEnd1"
+	 StrCmp $0 "1" "IObitUndeleteDown1" "IObitUndeleteEnd1"
+  	 ${If} $0 == "1"
+    	   IObitUndeleteDown1:
+
+                SetShellVarContext "all"
+
+		; === Get Toolbox Already Exist ===
+        	MessageBox MB_YESNO|MB_USERICON 'Warnig!$\n$\nIObit Undelete already exists.$\n$\nDo you want to download it again?' IDYES "IObitUndeleteEnd1" IDNO "IObitUndeleteExit1"
+        	Abort
+
+        	GoTo IObitUndeleteExit1
+
+  	 ${ElseIf} $0 == "0"
+    	   IObitUndeleteEnd1:
+
+                SetShellVarContext "all"
+
+		RMDir /r "$TEMP\Toolbox"
+		CreateDirectory "$TEMP\Toolbox"
+
+		; === Download and install Toolbox ===
+		inetc::get /POPUP "" /CAPTION "IObit-Undelete.exe" "http://update.iobit.com/dl/IObit-Undelete.exe" "$TEMP\Toolbox\IObit-Undelete.exe" /END
+		Pop $0
+		StrCmp $0 "OK" +3
+		  MessageBox MB_USERICON "Download of IObit-Undelete.exe: $0"
+		Goto +3
+
+                SetShellVarContext "all"
+		CreateDirectory "$PROGRAMFILES\IObit\IObit Undelete"
+    		  ${CopyFolders} "$TEMP\Toolbox" "$PROGRAMFILES\IObit\IObit Undelete"
+
+                SetShellVarContext "all"
+                CreateShortCut "$DESKTOP\IObit Undelete.lnk" "$PROGRAMFILES\IObit\IObit Undelete\IObit-Undelete.exe"
+
+        	GoTo IObitUndeleteExit1
+
+  	 ${EndIf}
+	 IObitUndeleteExit1:
+       ${EndIf}
+
+       # ...:: IObit PCtransfer ::... #
+
+       ${If} $Bool_Yes_Install_IPC == 1
+  	 IfFileExists "$PROGRAMFILES\IObit\PCtransfer\PCtransfer.exe" "IObitPCtransferDown1" "IObitPCtransferEnd1"
+	 StrCmp $0 "1" "IObitPCtransferDown1" "IObitPCtransferEnd1"
+  	 ${If} $0 == "1"
+    	   IObitPCtransferDown1:
+
+                SetShellVarContext "all"
+
+		; === Get Toolbox Already Exist ===
+        	MessageBox MB_YESNO|MB_USERICON 'Warnig!$\n$\nIObit PCtransfer already exists.$\n$\nDo you want to download it again?' IDYES "IObitPCtransferEnd1" IDNO "IObitPCtransferExit1"
+        	Abort
+
+        	GoTo IObitPCtransferExit1
+
+  	 ${ElseIf} $0 == "0"
+    	   IObitPCtransferEnd1:
+
+                SetShellVarContext "all"
+		RMDir /r "$TEMP\Toolbox"
+		CreateDirectory "$TEMP\Toolbox"
+
+		; === Download and install Toolbox ===
+		inetc::get /POPUP "" /CAPTION "pctransfer.exe" "http://update.iobit.com/dl/pctransfer.exe" "$TEMP\Toolbox\pctransfer.exe" /END
+		Pop $0
+		StrCmp $0 "OK" +3
+		  MessageBox MB_USERICON "Download of pctransfer.exe: $0"
+		Goto +3
+
+                SetShellVarContext "all"
+		CreateDirectory "$PROGRAMFILES\IObit\PCtransfer"
+
+      		ExecWait '"$TEMP\Toolbox\pctransfer.exe" /VERYSILENT /NORESTART'
+
+                SetShellVarContext "all"
+                CreateShortCut "$DESKTOP\IObit PCtransfer.lnk" "$PROGRAMFILES\IObit\PCtransfer\PCtransfer.exe"
+
+        	GoTo IObitPCtransferExit1
+
+  	 ${EndIf}
+	 IObitPCtransferExit1:
+       ${EndIf}
+
+       # ...:: IObit Protect Folder ::... #
+
+       ${If} $Bool_Yes_Install_IPF == 1
+  	 IfFileExists "$PROGRAMFILES\IObit\Protected Folder\ProtectedFolder.exe" "IObitProtectedFolderDown1" "IObitProtectedFolderEnd1"
+	 StrCmp $0 "1" "IObitProtectedFolderDown1" "IObitProtectedFolderEnd1"
+  	 ${If} $0 == "1"
+    	   IObitProtectedFolderDown1:
+
+                SetShellVarContext "all"
+
+		; === Get Toolbox Already Exist ===
+        	MessageBox MB_YESNO|MB_USERICON 'Warnig!$\n$\nIObit Protected Folder already exists.$\n$\nDo you want to download it again?' IDYES "IObitProtectedFolderEnd1" IDNO "IObitProtectedFolderExit1"
+        	Abort
+
+        	GoTo IObitProtectedFolderExit1
+
+  	 ${ElseIf} $0 == "0"
+    	   IObitProtectedFolderEnd1:
+
+                SetShellVarContext "all"
+
+		RMDir /r "$TEMP\Toolbox"
+		CreateDirectory "$TEMP\Toolbox"
+
+		; === Download and install Toolbox ===
+		inetc::get /POPUP "" /CAPTION "protected-folder-setup.exe" "http://update.iobit.com/dl/protected-folder-setup.exe" "$TEMP\Toolbox\protected-folder-setup.exe" /END
+		Pop $0
+		StrCmp $0 "OK" +3
+		  MessageBox MB_USERICON "Download of protected-folder-setup.exe: $0"
+		Goto +3
+
+                SetShellVarContext "all"
+
+      		ExecWait '"$TEMP\Toolbox\protected-folder-setup.exe" /VERYSILENT /NORESTART'
+
+        	GoTo IObitProtectedFolderExit1
+
+  	 ${EndIf}
+	 IObitProtectedFolderExit1:
+       ${EndIf}
+
+    ${Else} 
+
+      DetailPrint "$NO_INTERNET_CONNECTION_LANGUAGE"
+
+    ${EndIf} 
+
     IfFileExists "$INSTDIR\NSIS Portable.exe" "Done5" "NSIS.Failed.Install.Portable"
 
     Sleep 100

@@ -29,9 +29,9 @@ echo.
 
 echo Initialing ...
 echo.
-set "NSIS=%ProgramFiles%\NSIS\makensis.exe"
+set "NSIS=%PROGRAMFILES%\NSIS\makensis.exe"
 echo.
-"%NSIS%" "%~dp0\Nullsoft Installer.nsi" >> NSIS_compile_log.log
+"%NSIS%" "%~dp0Nullsoft Installer.nsi" >> NSIS_compile_log.log
 echo.
 echo Successful!
 echo.
