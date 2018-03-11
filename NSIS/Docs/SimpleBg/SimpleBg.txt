@@ -1,0 +1,27 @@
+SimpleBg plugin for NSIS
+
+Coded by Jason Ross aka JasonFriday13
+
+2007, 2010-2011 2013-2014 MouseHelmet Software
+
+Requires NSIS 2.42, uses new plugin api's.
+2013: File structure refined to follow NSIS 3.0a0 and up.
+Other minor tweaks in preperation for x64 support.
+2010: Updated the text drawing function to fix a minor bug with speech marks.
+
+Introduction
+------------
+
+This plugin displays a background window with a border and titlebar. I coded
+this plugin for my InstallSpider user interface, but can be used for any
+installer.
+
+Function
+--------
+
+SimpleBg::SetBg /NOUNLOAD R G B R G B "Text on background"
+
+The first set of RGB is the top colour. 0 255 0 would make a green top color.
+The second set of RGB is the bottom colour. 255 0 0 would make a red bottom colour.
+The "Text on background" is obviously the text that is displayed on the background.
+This function must be used in the .onguiinit function.
