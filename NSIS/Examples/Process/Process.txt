@@ -1,0 +1,17 @@
+﻿Name Process
+OutFile Process.exe
+
+Section
+SectionEnd
+
+Function .onInit
+find_loop:
+        Process::FindProcess "notepad2.exe"
+        Pop $0
+        IntCmp $0 0 find_done
+        Process::KillProcess "notepad2.exe"
+        Pop $0
+        Sleep 128
+        Goto find_loop
+find_done:
+FunctionEnd
