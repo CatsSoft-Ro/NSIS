@@ -1,0 +1,19 @@
+ipicsplash.dll - plug-in on the base of AdvSplash
+Read AdvSlpash Readme for the list of options.
+
+diff:
+1. While plug-in suports jpg, gif, tiff and other image types,
+   do not forget to set file extension in the "ipicsplash::show",
+   call, for example:
+
+     ipicsplash::show 1000 600 400 -1 $PLUGINSDIR\my_mom.jpg
+
+2. New entry point for sound
+     ipicsplash::play /NOUNLOAD $PLUGINSDIR\bububu.wav
+   I could hear sound on Win98 this way only.
+
+3. thats all. It is also easy to extract transparency index from
+   gif89a header, but I left all "as it is" for compatibility
+   with other image types and not to increase dll size.
+   png and tiff is still a problem.
+
