@@ -635,6 +635,10 @@ function GetLocaleLanguageName
   IfErrors 0 +3
   ${If} $DEFAULT_LANGUAGE != "1"
 
+    ClearErrors
+
+    SetShellVarContext "all"
+
     Strcpy $LANGUAGEDIR "$EXEDIR\NSIS_TempDir\Language"
     StrCpy $SETTINGSDIR "$EXEDIR\NSIS_TempDir\Settings"
 
@@ -645,13 +649,17 @@ function GetLocaleLanguageName
 
   ${ElseIf} $DEFAULT_LANGUAGE == "0"
 
+    ClearErrors
+
+    SetShellVarContext "all"
+
     Strcpy $LANGUAGEDIR "$EXEDIR\NSIS_TempDir\Language"
     StrCpy $SETTINGSDIR "$EXEDIR\NSIS_TempDir\Settings"
 
     CreateDirectory "$SETTINGSDIR"
-    WriteINIStr "$SETTINGSDIR\Settings.ini" "Language" "Language" "$locale_language_name"
-    WriteINIStr "$SETTINGSDIR\Settings.ini" "Language" "GeoCode" "$locale_language_code"
-    WriteINIStr "$SETTINGSDIR\Settings.ini" "Language" "GeoID" "$locale_language_id"
+    WriteINIStr "$SETTINGSDIR\Settings.ini" "Language" "Language" "English"
+    WriteINIStr "$SETTINGSDIR\Settings.ini" "Language" "GeoCode" "En"
+    WriteINIStr "$SETTINGSDIR\Settings.ini" "Language" "GeoID" "1033"
 
   ${EndIf}
 
